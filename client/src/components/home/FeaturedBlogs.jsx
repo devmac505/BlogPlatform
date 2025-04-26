@@ -1,66 +1,42 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight, faCalendarAlt, faTag } from '@fortawesome/free-solid-svg-icons';
+import API_URL from '../../config/api';
 import './FeaturedBlogs.css';
 
 const FeaturedBlogs = () => {
-  // Mock data for featured blogs
-  const featuredBlogs = [
-    {
-      id: 1,
-      title: 'Getting Started with React',
-      excerpt: 'Learn the basics of React and how to create your first component. This guide will walk you through the fundamentals.',
-      color: '#4a6cf7',
-      date: 'April 20, 2023',
-      category: 'Web Development',
-      readTime: '5 min read'
-    },
-    {
-      id: 2,
-      title: 'The Power of CSS Grid',
-      excerpt: 'Discover how CSS Grid can transform your layouts and make responsive design easier. Master grid templates and areas.',
-      color: '#f97316',
-      date: 'April 15, 2023',
-      category: 'CSS',
-      readTime: '4 min read'
-    },
-    {
-      id: 3,
-      title: 'JavaScript ES6 Features',
-      excerpt: 'Explore the modern features of JavaScript that make coding more efficient. Learn about arrow functions, destructuring, and more.',
-      color: '#eab308',
-      date: 'April 10, 2023',
-      category: 'JavaScript',
-      readTime: '6 min read'
-    },
-    {
-      id: 4,
-      title: 'Building a MERN Stack App',
-      excerpt: 'Step-by-step guide to creating a full-stack application with MongoDB, Express, React, and Node.js. From setup to deployment.',
-      color: '#14b8a6',
-      date: 'April 5, 2023',
-      category: 'Full Stack',
-      readTime: '8 min read'
-    },
-    {
-      id: 5,
-      title: 'Responsive Design Principles',
-      excerpt: 'Learn the key principles for creating websites that look great on any device. Mobile-first approach and best practices.',
-      color: '#8b5cf6',
-      date: 'April 1, 2023',
-      category: 'UI/UX',
-      readTime: '5 min read'
-    },
-    {
-      id: 6,
-      title: 'Introduction to TypeScript',
-      excerpt: 'Why TypeScript is becoming essential for modern web development projects. Explore static typing and interfaces.',
-      color: '#ec4899',
-      date: 'March 25, 2023',
-      category: 'TypeScript',
-      readTime: '7 min read'
-    }
-  ];
+  const [featuredBlogs, setFeaturedBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchFeaturedBlogs = async () => {
+      try {
+        const response = await fetch(`${API_URL}/api/blogs?limit=6`);
+        const data = await response.json();
+
+        if (data.success) {
+          setFeaturedBlogs(data.data);
+        } else {
+          setError('Failed to fetch blogs');
+        }
+      } catch (error) {
+        setError('Error connecting to the server');
+        console.error('Error fetching featured blogs:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFeaturedBlogs();
+  }, []);
+
+  // Generate a random color for blog cards
+  const getRandomColor = () => {
+    const colors = ['#4a6cf7', '#f97316', '#eab308', '#14b8a6', '#8b5cf6', '#ec4899'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
 
   return (
     <section className="featured-blogs">
@@ -70,39 +46,58 @@ const FeaturedBlogs = () => {
           <p>Explore the latest articles and insights</p>
         </div>
 
-        <div className="blogs-grid">
-          {featuredBlogs.map(blog => (
-            <div className="blog-card" key={blog.id}>
-              <div className="blog-image" style={{ backgroundColor: blog.color }}>
-                <div className="blog-category">
-                  <FontAwesomeIcon icon={faTag} className="category-icon" />
-                  {blog.category}
-                </div>
-                <div className="blog-overlay"></div>
-              </div>
-              <div className="blog-content">
-                <div className="blog-meta">
-                  <div className="blog-date">
-                    <FontAwesomeIcon icon={faCalendarAlt} className="date-icon" />
-                    {blog.date}
+        {loading ? (
+          <div className="loading">Loading featured blogs...</div>
+        ) : error ? (
+          <div className="error-message">{error}</div>
+        ) : featuredBlogs.length === 0 ? (
+          <div className="no-blogs">
+            <p>No blog posts found. Check back soon for new content!</p>
+          </div>
+        ) : (
+          <>
+            <div className="blogs-grid">
+              {featuredBlogs.map(blog => (
+                <div className="blog-card" key={blog._id}>
+                  <div className="blog-image" style={{ backgroundColor: getRandomColor() }}>
+                    {blog.image && <img src={blog.image} alt={blog.title} />}
+                    <div className="blog-category">
+                      <FontAwesomeIcon icon={faTag} className="category-icon" />
+                      {blog.category || 'Uncategorized'}
+                    </div>
+                    <div className="blog-overlay"></div>
                   </div>
-                  <div className="blog-read-time">{blog.readTime}</div>
+                  <div className="blog-content">
+                    <div className="blog-meta">
+                      <div className="blog-date">
+                        <FontAwesomeIcon icon={faCalendarAlt} className="date-icon" />
+                        {new Date(blog.createdAt).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </div>
+                      {blog.readTime && <div className="blog-read-time">{blog.readTime}</div>}
+                    </div>
+                    <h3 className="blog-title">{blog.title}</h3>
+                    <p className="blog-excerpt">
+                      {blog.excerpt || (blog.content && blog.content.substring(0, 120) + '...')}
+                    </p>
+                    <Link to={`/blog/${blog._id}`} className="read-more">
+                      Read More <FontAwesomeIcon icon={faArrowRight} className="read-more-icon" />
+                    </Link>
+                  </div>
                 </div>
-                <h3 className="blog-title">{blog.title}</h3>
-                <p className="blog-excerpt">{blog.excerpt}</p>
-                <Link to={`/blog/${blog.id}`} className="read-more">
-                  Read More <FontAwesomeIcon icon={faArrowRight} className="read-more-icon" />
-                </Link>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        <div className="view-all">
-          <Link to="/blogs" className="btn btn-outline">
-            View All Blogs
-          </Link>
-        </div>
+            <div className="view-all">
+              <Link to="/blogs" className="btn btn-outline">
+                View All Blogs
+              </Link>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );

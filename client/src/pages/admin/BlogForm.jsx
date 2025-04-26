@@ -1,17 +1,25 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import API_URL from '../../config/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
+import {
+  faSave,
+  faTimes,
+  faCode,
+  faImage,
+  faQuestionCircle
+} from '@fortawesome/free-solid-svg-icons';
 import '../../styles/BlogForm.css';
 
 const BlogForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { token } = useContext(AuthContext);
+  const contentRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showHelp, setShowHelp] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -64,6 +72,75 @@ const BlogForm = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+  };
+
+  // Insert code snippet template
+  const insertCodeSnippet = () => {
+    const textarea = contentRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = formData.content.substring(start, end);
+
+    const codeTemplate = `\`\`\`javascript
+${selectedText || '// Your code here'}
+\`\`\`
+
+`;
+
+    const newContent =
+      formData.content.substring(0, start) +
+      codeTemplate +
+      formData.content.substring(end);
+
+    setFormData({
+      ...formData,
+      content: newContent
+    });
+
+    // Set cursor position after insertion
+    setTimeout(() => {
+      textarea.focus();
+      const newPosition = start + codeTemplate.indexOf('// Your code here');
+      textarea.setSelectionRange(newPosition, newPosition + (selectedText ? selectedText.length : 16));
+    }, 0);
+  };
+
+  // Insert image markdown
+  const insertImage = () => {
+    const imageUrl = prompt('Enter image URL:');
+    if (!imageUrl) return;
+
+    const altText = prompt('Enter image description (alt text):', 'Image');
+
+    const textarea = contentRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const imageMarkdown = `![${altText}](${imageUrl})\n\n`;
+
+    const newContent =
+      formData.content.substring(0, start) +
+      imageMarkdown +
+      formData.content.substring(start);
+
+    setFormData({
+      ...formData,
+      content: newContent
+    });
+
+    // Set cursor position after insertion
+    setTimeout(() => {
+      textarea.focus();
+      const newPosition = start + imageMarkdown.length;
+      textarea.setSelectionRange(newPosition, newPosition);
+    }, 0);
+  };
+
+  // Toggle help section
+  const toggleHelp = () => {
+    setShowHelp(!showHelp);
   };
 
   const handleSubmit = async (e) => {
@@ -204,13 +281,58 @@ const BlogForm = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="content">Content</label>
+          <div className="content-label-row">
+            <label htmlFor="content">Content</label>
+            <div className="content-tools">
+              <button
+                type="button"
+                className="tool-button"
+                onClick={insertCodeSnippet}
+                title="Insert Code Snippet"
+              >
+                <FontAwesomeIcon icon={faCode} />
+              </button>
+              <button
+                type="button"
+                className="tool-button"
+                onClick={insertImage}
+                title="Insert Image"
+              >
+                <FontAwesomeIcon icon={faImage} />
+              </button>
+              <button
+                type="button"
+                className="tool-button help-button"
+                onClick={toggleHelp}
+                title="Formatting Help"
+              >
+                <FontAwesomeIcon icon={faQuestionCircle} />
+              </button>
+            </div>
+          </div>
+
+          {showHelp && (
+            <div className="formatting-help">
+              <h4>Formatting Help</h4>
+              <ul>
+                <li><strong>Code Snippets:</strong> Use the code button or wrap code in triple backticks with optional language name:
+                  <pre>```javascript<br/>// Your code here<br/>```</pre>
+                </li>
+                <li><strong>Images:</strong> Use the image button or use markdown format:
+                  <pre>![Alt text](image-url)</pre>
+                </li>
+                <li><strong>Paragraphs:</strong> Separate paragraphs with blank lines</li>
+              </ul>
+            </div>
+          )}
+
           <textarea
             id="content"
             name="content"
             value={formData.content}
             onChange={handleChange}
-            rows="10"
+            rows="15"
+            ref={contentRef}
             required
           ></textarea>
         </div>

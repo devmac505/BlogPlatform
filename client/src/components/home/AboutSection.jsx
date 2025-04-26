@@ -7,7 +7,6 @@ import {
   faCheck,
   faArrowRight,
   faGraduationCap,
-  faBriefcase,
   faCode,
   faUser
 } from '@fortawesome/free-solid-svg-icons';
@@ -43,22 +42,27 @@ const AboutSection = () => {
 
             <p className="about-description">
               As a full stack developer, I specialize in building responsive, user-friendly
-              applications using the MERN stack. This platform is where I document my learning process, showcase projects,
+              applications using modern web technologies. This platform is where I document my learning process, showcase projects,
               and connect with like-minded individuals in the tech community.
+            </p>
+
+            <p className="about-description">
+              When I'm not coding, you can find me exploring new hiking trails, experimenting with photography,
+              or diving into a good book. I believe in continuous learning and sharing knowledge with others.
             </p>
 
             <div className="about-stats">
               <div className="stat-item">
-                <span className="stat-number">50+</span>
+                <span className="stat-number">10+</span>
                 <span className="stat-label">Projects Completed</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number">100+</span>
+                <span className="stat-number">5+</span>
                 <span className="stat-label">Blog Articles</span>
               </div>
               <div className="stat-item">
-                <span className="stat-number">5+</span>
-                <span className="stat-label">Years Experience</span>
+                <span className="stat-number">1+</span>
+                <span className="stat-label">Years Coding</span>
               </div>
             </div>
 
@@ -69,7 +73,7 @@ const AboutSection = () => {
                 </div>
                 <div className="feature-text">
                   <h4>Technical Expertise</h4>
-                  <p>JavaScript, React, Node.js, MongoDB, Express</p>
+                  <p>JavaScript, React, Node.js, MongoDB, Express, CSS/SASS</p>
                 </div>
               </div>
 
@@ -80,16 +84,6 @@ const AboutSection = () => {
                 <div className="feature-text">
                   <h4>Education</h4>
                   <p>B.S. in Information Technology, Central Bicol State University of Agriculture</p>
-                </div>
-              </div>
-
-              <div className="feature-item">
-                <div className="feature-icon">
-                  <FontAwesomeIcon icon={faBriefcase} />
-                </div>
-                <div className="feature-text">
-                  <h4>Work Experience</h4>
-                  <p>Senior Developer at TechSolutions Inc.</p>
                 </div>
               </div>
             </div>
@@ -127,36 +121,40 @@ const AboutSection = () => {
               <h3 className="interests-title">My Interests</h3>
 
               <div className="interests-grid">
-                <div className="interest-item">
-                  <div className="interest-icon">
-                    <FontAwesomeIcon icon={faLaptopCode} />
+                <div className="interests-row">
+                  <div className="interest-item">
+                    <div className="interest-icon">
+                      <FontAwesomeIcon icon={faLaptopCode} />
+                    </div>
+                    <h3>Web Dev</h3>
+                    <p>Modern frameworks</p>
                   </div>
-                  <h3>Web Development</h3>
-                  <p>Modern frameworks and best practices</p>
+
+                  <div className="interest-item">
+                    <div className="interest-icon">
+                      <FontAwesomeIcon icon={faPenNib} />
+                    </div>
+                    <h3>Writing</h3>
+                    <p>Technical docs</p>
+                  </div>
                 </div>
 
-                <div className="interest-item">
-                  <div className="interest-icon">
-                    <FontAwesomeIcon icon={faPenNib} />
+                <div className="interests-row">
+                  <div className="interest-item">
+                    <div className="interest-icon">
+                      <FontAwesomeIcon icon={faCamera} />
+                    </div>
+                    <h3>Photos</h3>
+                    <p>Visual stories</p>
                   </div>
-                  <h3>Technical Writing</h3>
-                  <p>Simplifying complex concepts</p>
-                </div>
 
-                <div className="interest-item">
-                  <div className="interest-icon">
-                    <FontAwesomeIcon icon={faCamera} />
+                  <div className="interest-item">
+                    <div className="interest-icon">
+                      <FontAwesomeIcon icon={faBookOpen} />
+                    </div>
+                    <h3>Learning</h3>
+                    <p>Always growing</p>
                   </div>
-                  <h3>Photography</h3>
-                  <p>Visual storytelling</p>
-                </div>
-
-                <div className="interest-item">
-                  <div className="interest-icon">
-                    <FontAwesomeIcon icon={faBookOpen} />
-                  </div>
-                  <h3>Continuous Learning</h3>
-                  <p>Always curious and growing</p>
                 </div>
               </div>
             </div>

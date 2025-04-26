@@ -7,6 +7,8 @@
   --secondary-light: #334155;
   --text-color: #334155;
   --text-light: #64748b;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
   --background: #ffffff;
   --background-light: #f8fafc;
   --background-dark: #e2e8f0;
@@ -19,6 +21,7 @@
   --error: #ef4444;
   --info: #3b82f6;
   --shadow-color: rgba(0, 0, 0, 0.1);
+  --error-color: #ef4444;
 
   /* Typography */
   --font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -74,25 +77,28 @@
 
 /* Dark Theme Colors */
 [data-theme="dark"] {
-  --primary-color: #4a6cf7;
-  --primary-dark: #3a57e8;
-  --primary-light: #6b8af8;
-  --secondary-color: #e2e8f0;
+  --primary-color: #5d7bf9;
+  --primary-dark: #4a6cf7;
+  --primary-light: #7c94fa;
+  --secondary-color: #f1f5f9;
   --secondary-light: #f8fafc;
-  --text-color: #e2e8f0;
-  --text-light: #cbd5e1;
+  --text-color: #f1f5f9;
+  --text-light: #e2e8f0;
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
   --background: #0f172a;
   --background-light: #1e293b;
   --background-dark: #0f172a;
   --card-background: #1e293b;
   --border-color: #334155;
-  --white: #0f172a;
-  --black: #f8fafc;
+  --white: #ffffff;
+  --black: #0f172a;
   --success: #10b981;
   --warning: #f59e0b;
-  --error: #ef4444;
-  --info: #3b82f6;
+  --error: #f87171;
+  --info: #60a5fa;
   --shadow-color: rgba(0, 0, 0, 0.3);
+  --error-color: #f87171;
 }
 
 * {

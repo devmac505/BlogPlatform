@@ -40,6 +40,78 @@
   transition: border-color 0.3s;
   background-color: var(--background);
   color: var(--text-color);
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.5;
+}
+
+/* Content editor tools */
+.content-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-tools {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tool-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  background-color: var(--background-light);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tool-button:hover {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.help-button {
+  color: var(--primary-color);
+}
+
+.formatting-help {
+  background-color: var(--background-light);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.formatting-help h4 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: var(--primary-color);
+}
+
+.formatting-help ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.formatting-help li {
+  margin-bottom: 0.75rem;
+}
+
+.formatting-help pre {
+  background-color: var(--background);
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  overflow-x: auto;
 }
 
 .form-group input:focus,

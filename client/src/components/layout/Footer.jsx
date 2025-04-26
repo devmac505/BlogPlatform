@@ -37,15 +37,15 @@ const Footer = () => {
             <div className="footer-contact-info">
               <div className="contact-item">
                 <FontAwesomeIcon icon={faEnvelope} className="contact-icon" />
-                <span>info@personalblog.com</span>
+                <span>markcustodii@gmail.com</span>
               </div>
               <div className="contact-item">
                 <FontAwesomeIcon icon={faPhone} className="contact-icon" />
-                <span>+1 (555) 123-4567</span>
+                <span>+63 9669944246</span>
               </div>
               <div className="contact-item">
                 <FontAwesomeIcon icon={faLocationDot} className="contact-icon" />
-                <span>New York, NY, USA</span>
+                <span>PHILIPPINES, Manila City</span>
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@ const Footer = () => {
         <div className="footer-divider"></div>
 
         <div className="footer-bottom">
-          <p>&copy; {currentYear} PersonalBlog. All rights reserved.</p>
+          <p>&copy; {currentYear} MACBlog. All rights reserved.</p>
 
           <div className="social-icons">
             <a href="#" aria-label="Twitter" className="social-icon">
