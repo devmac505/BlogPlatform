@@ -21,7 +21,7 @@ app.use(express.json());
 
 // Enable CORS with specific origin
 app.use(cors({
-  origin: process.env.FRONTEND_URL || '*',
+  origin: process.env.FRONTEND_URL || 'http://localhost:4000',
   credentials: true
 }));
 

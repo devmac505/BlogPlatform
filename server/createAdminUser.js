@@ -6,12 +6,12 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // Connect to database
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/blog-platform');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/blog-platform');
 
 const createAdminUser = async () => {
   try {
     // Check if admin user already exists
-    const adminExists = await User.findOne({ email: 'admin@example.com' });
+    const adminExists = await User.findOne({ email: 'admin@blogplatform.com' });
 
     if (adminExists) {
       console.log('Admin user already exists');
@@ -20,9 +20,9 @@ const createAdminUser = async () => {
 
     // Create admin user
     const admin = await User.create({
-      name: 'Admin User',
-      email: 'admin@example.com',
-      password: 'password123',
+      name: 'Blog Admin',
+      email: 'admin@blogplatform.com',
+      password: 'Admin@123',
       role: 'admin'
     });
 
