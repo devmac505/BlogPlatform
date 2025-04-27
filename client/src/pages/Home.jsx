@@ -1,10 +1,10 @@
 import HeroSection from '../components/home/HeroSection';
-import FeaturedBlogs from '../components/home/FeaturedBlogs';
-import AboutSection from '../components/home/AboutSection';
+import FeaturedBlogs from '../components/blog/FeaturedBlogs';
+import AboutSection from '../components/about/AboutSection';
 
 const Home = () => {
   return (
-    <main>
+    <main className="home-page">
       <HeroSection />
       <FeaturedBlogs />
       <AboutSection />

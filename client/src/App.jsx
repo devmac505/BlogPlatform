@@ -1,7 +1,14 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useContext } from 'react';
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
+import { AuthProvider, AuthContext } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
+
+// Layouts
+import MainLayout from './layouts/MainLayout';
+import AuthLayout from './layouts/AuthLayout';
+import AdminLayout from './components/admin/AdminLayout';
+
+// Pages
 import Home from './pages/Home';
 import Blogs from './pages/Blogs';
 import About from './pages/About';
@@ -9,12 +16,13 @@ import Contact from './pages/Contact';
 import BlogDetail from './pages/BlogDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import AdminLayout from './components/admin/AdminLayout';
 import Dashboard from './pages/admin/Dashboard';
 import BlogList from './pages/admin/BlogList';
 import BlogForm from './pages/admin/BlogForm';
-import { AuthProvider, AuthContext } from './context/AuthContext';
-import { ThemeProvider } from './context/ThemeContext';
+
+// UI Components
+import Loading from './components/ui/Loading';
+
 import './App.css';
 
 // Protected route component
@@ -22,7 +30,7 @@ const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading, user } = useContext(AuthContext);
 
   if (loading) {
-    return <div className="loading">Loading...</div>;
+    return <Loading fullPage />;
   }
 
   if (!isAuthenticated) {
@@ -41,60 +49,17 @@ function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <div className="app">
-            <Routes>
-            {/* Public routes with header and footer */}
-            <Route path="/" element={
-              <>
-                <Header />
-                <Home />
-                <Footer />
-              </>
-            } />
-            <Route path="/blogs" element={
-              <>
-                <Header />
-                <Blogs />
-                <Footer />
-              </>
-            } />
-            <Route path="/blog/:id" element={
-              <>
-                <Header />
-                <BlogDetail />
-                <Footer />
-              </>
-            } />
-            <Route path="/about" element={
-              <>
-                <Header />
-                <About />
-                <Footer />
-              </>
-            } />
-            <Route path="/contact" element={
-              <>
-                <Header />
-                <Contact />
-                <Footer />
-              </>
-            } />
+          <Routes>
+            {/* Public routes with MainLayout */}
+            <Route path="/" element={<MainLayout><Home /></MainLayout>} />
+            <Route path="/blogs" element={<MainLayout><Blogs /></MainLayout>} />
+            <Route path="/blog/:id" element={<MainLayout><BlogDetail /></MainLayout>} />
+            <Route path="/about" element={<MainLayout><About /></MainLayout>} />
+            <Route path="/contact" element={<MainLayout><Contact /></MainLayout>} />
 
-            {/* Auth routes */}
-            <Route path="/login" element={
-              <>
-                <Header />
-                <Login />
-                <Footer />
-              </>
-            } />
-            <Route path="/register" element={
-              <>
-                <Header />
-                <Register />
-                <Footer />
-              </>
-            } />
+            {/* Auth routes with AuthLayout */}
+            <Route path="/login" element={<AuthLayout><Login /></AuthLayout>} />
+            <Route path="/register" element={<AuthLayout><Register /></AuthLayout>} />
 
             {/* Admin routes */}
             <Route path="/admin" element={
@@ -108,8 +73,10 @@ function App() {
               <Route path="blogs/new" element={<BlogForm />} />
               <Route path="blogs/edit/:id" element={<BlogForm />} />
             </Route>
+
+            {/* Catch-all route */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-          </div>
         </Router>
       </AuthProvider>
     </ThemeProvider>

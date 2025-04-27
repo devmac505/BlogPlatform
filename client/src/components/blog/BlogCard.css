@@ -1,0 +1,106 @@
+.blog-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.blog-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card-featured {
+  transform: scale(1.02);
+}
+
+.blog-card-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+  border-top-left-radius: var(--border-radius-md);
+  border-top-right-radius: var(--border-radius-md);
+}
+
+.blog-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-normal);
+}
+
+.blog-card:hover .blog-card-image img {
+  transform: scale(1.05);
+}
+
+.blog-card-image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  color: var(--white);
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+}
+
+.blog-card-featured-badge {
+  position: absolute;
+  top: var(--spacing-sm);
+  right: var(--spacing-sm);
+  background-color: var(--primary-color);
+  color: var(--white);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.blog-card-title {
+  font-size: var(--font-size-xl);
+  color: var(--secondary-color);
+  margin-bottom: var(--spacing-sm);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.blog-card-excerpt {
+  color: var(--text-light);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.blog-card-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+.blog-card-author {
+  font-weight: 500;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .blog-card-title {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .blog-card-excerpt {
+  color: var(--text-light);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .blog-card-image {
+    height: 180px;
+  }
+  
+  .blog-card-title {
+    font-size: var(--font-size-lg);
+  }
+}

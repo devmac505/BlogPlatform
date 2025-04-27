@@ -1,0 +1,62 @@
+.card {
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+/* Card variants */
+.card-default {
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
+}
+
+.card-outlined {
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+}
+
+.card-elevated {
+  background-color: var(--white);
+  box-shadow: var(--box-shadow-md);
+}
+
+/* Hoverable card */
+.card-hoverable {
+  cursor: pointer;
+}
+
+.card-hoverable:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--box-shadow-lg);
+}
+
+/* Card parts */
+.card-header {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.card-body {
+  padding: var(--spacing-lg);
+}
+
+.card-footer {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-top: 1px solid var(--border-color);
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .card-default,
+[data-theme="dark"] .card-outlined,
+[data-theme="dark"] .card-elevated {
+  background-color: var(--background-light);
+}
+
+[data-theme="dark"] .card-outlined {
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .card-header,
+[data-theme="dark"] .card-footer {
+  border-color: var(--border-color);
+}
